@@ -4,14 +4,11 @@ metadata:
   name: user-management-ingress
   namespace: prod
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   ingressClassName: nginx
   rules:
-    - host: 43.204.109.198
-      http:
+    - http:
         paths:
           - path: /api
             pathType: Prefix
@@ -27,24 +24,3 @@ spec:
                 name: frontend-svc
                 port:
                   number: 80
-    - host: 43.204.109.198
-      http:
-        paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-svc
-                port:
-                  number: 5000
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend-svc
-                port:
-                  number: 80
-  tls:
-    - hosts:
-        - 43.204.109.198
-      secretName: adityajaiswal-co-tls
